@@ -36,7 +36,7 @@ class News {
   }
 
   event() {
-    console.log(this.data);
+    modal.render(this.data);
   }
 
   render() {
@@ -53,8 +53,31 @@ class News {
   }
 }
 
+class DetailModal {
+  constructor() {
+    this.modalBox = document.getElementById('modal');
+    this.times = document.getElementById('times');
+    this.content = document.getElementById('modal-content');
+
+    this.times.addEventListener('click', () => {
+      this.dismiss.call(this);
+    });
+  }
+
+  dismiss() {
+    this.modalBox.className = 'modal';
+    this.content.innerHTML = '';
+  }
+
+  render(data) {
+    this.modalBox.className = 'modal show';
+    this.content.innerHTML = `${data.title}`;
+  }
+}
+
+var modal = new DetailModal();
+
 function renderList(news) {
   let item = new News(news);
-
   newsList.appendChild(item.render());
 }
