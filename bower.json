@@ -1,5 +1,7 @@
 {
-  "name": "legendary-ecma",
-  "private": true,
-  "dependencies": {}
+  "name": "ecmanews",
+  "version": "0.0.0",
+  "dependencies": {
+    },
+  "devDependencies": {  }
 }
