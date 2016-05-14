@@ -11,27 +11,50 @@ $http.ajaxGet('./data/data.json')
   .then(json => {
     var result = JSON.parse(json);
 
-    result.results.forEach(news => {
-      var date = new Date(news.publishedDate);
-      var options = {
-        weekday: "long",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      };
-      var formatedDate = date.toLocaleTimeString("en-us", options);
-
-      var content = `<div class="news-item">
-          <img src="${news.image.tbUrl}">
-          <h2>${news.title}</h2>
-          <p>${news.publisher}</p>
-          <p>${formatedDate}</p>
-        </div>`;
-      newsList.innerHTML = newsList.innerHTML + content;
-    });
+    result.results.forEach(renderList);
   }).catch(error => {
     // displayDiv.innerHTML = error;
     console.log(error);
   });
+
+class News {
+  constructor(data) {
+    this.data = data;
+  }
+
+  getDate() {
+    var date = new Date(this.data.publishedDate);
+    var options = {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    };
+    return date.toLocaleTimeString("en-us", options);
+  }
+
+  event() {
+    console.log(this.data);
+  }
+
+  render() {
+    var item = document.createElement('div');
+    item.className = 'news-item';
+    item.innerHTML = `<img src="${this.data.image.tbUrl}">
+          <h2>${this.data.title}</h2>
+          <p>${this.data.publisher}</p>
+          <p>${this.getDate()}</p>`;
+    item.addEventListener('click', () => {
+      this.event.call(this);
+    });
+    return item;
+  }
+}
+
+function renderList(news) {
+  let item = new News(news);
+
+  newsList.appendChild(item.render());
+}
