@@ -2,82 +2,45 @@
 
 // Import modules
 var $http = require('./ajax');
+var News = require('./News');
+var Dom = require('./Dom');
 
 // Get DOM elements
-var newsList = document.getElementById('news-list');
+var newsListDOM = document.getElementById('news-list');
+var domList = new Dom();
 
 // Fetch the data using xhr and promise
-$http.ajaxGet('./data/data.json')
+$http('./data/data.json')
   .then(json => {
     var result = JSON.parse(json);
-
     result.results.forEach(renderList);
   }).catch(error => {
     // displayDiv.innerHTML = error;
     console.log(error);
   });
 
-class News {
-  constructor(data) {
-    this.data = data;
-  }
-
-  getDate() {
-    var date = new Date(this.data.publishedDate);
-    var options = {
-      weekday: "long",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    };
-    return date.toLocaleTimeString("en-us", options);
-  }
-
-  event() {
-    modal.render(this.data);
-  }
-
-  render() {
-    var item = document.createElement('div');
-    item.className = 'news-item';
-    item.innerHTML = `<img src="${this.data.image.tbUrl}">
-          <h2>${this.data.title}</h2>
-          <p>${this.data.publisher}</p>
-          <p>${this.getDate()}</p>`;
-    item.addEventListener('click', () => {
-      this.event.call(this);
-    });
-    return item;
-  }
-}
-
-class DetailModal {
-  constructor() {
-    this.modalBox = document.getElementById('modal');
-    this.times = document.getElementById('times');
-    this.content = document.getElementById('modal-content');
-
-    this.times.addEventListener('click', () => {
-      this.dismiss.call(this);
-    });
-  }
-
-  dismiss() {
-    this.modalBox.className = 'modal';
-    this.content.innerHTML = '';
-  }
-
-  render(data) {
-    this.modalBox.className = 'modal show';
-    this.content.innerHTML = `${data.title}`;
-  }
-}
-
-var modal = new DetailModal();
-
 function renderList(news) {
-  let item = new News(news);
-  newsList.appendChild(item.render());
+  let item = new News(news, domList);
+  domList.pushItem(item);
+  newsListDOM.appendChild(item.render());
 }
+
+var inputs = document.getElementById('filter');
+
+inputs.addEventListener('keyup', function() {
+  var input = this.value.toLowerCase();
+  var empty = false;
+  
+  // Traverse the dom list
+  domList.list.forEach(item => {
+    var reg = RegExp(input);
+    var title = item.data.titleNoFormatting.toLowerCase();
+    var content = item.data.content.toLowerCase();
+    
+    if(title.match(reg) || content.match(reg)) {
+      domList.getItem(item.domId).show();
+    } else {
+      domList.getItem(item.domId).hide();
+    }
+  })
+})

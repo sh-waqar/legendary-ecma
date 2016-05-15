@@ -26,4 +26,4 @@ function ajaxGet(url) {
 }
 
 // Export the module
-export default { ajaxGet };
+export default ajaxGet;

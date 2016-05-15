@@ -24,6 +24,14 @@ body {
   margin: 10px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  
+  &.hide {
+    display: none;
+  }
+  
+  &.show {
+    display: block;
+  }
 }
 
 .modal {
