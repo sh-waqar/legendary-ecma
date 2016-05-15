@@ -19,12 +19,11 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('compass', function() {
-  return gulp.src('./src/stylesheets/**/*.{scss,sass}')
-    .pipe($.plumber())
-    .pipe($.compass({
-      css: 'dist/stylesheets',
-      sass: 'src/stylesheets'
-    }))
+  return gulp.src('./src/stylesheets/*.scss')
+    .pipe($.sass.sync().on('error', $.sass.logError))
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({ outputStyle: 'compressed' }))
+    .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('dist/stylesheets'));
 });
 
