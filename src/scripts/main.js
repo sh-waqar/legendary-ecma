@@ -34,7 +34,7 @@ inputs.addEventListener('keyup', function() {
     var title = item.data.titleNoFormatting.toLowerCase();
     var content = item.data.content.toLowerCase();
 
-    if(title.match(reg) || content.match(reg)) {
+    if (title.match(reg) || content.match(reg)) {
       domList.getItem(item.domId).show();
     } else {
       domList.getItem(item.domId).hide();
@@ -47,20 +47,34 @@ var dateFilter = document.getElementById('dateFilter');
 
 dateFilter.addEventListener('change', function() {
   var selectedDate = new Date(this.value)
-  
+
   // Traverse the dom list
   domList.list.forEach(item => {
     var itemDate = new Date(item.data.publishedDate);
-    
+
     if (isNaN(selectedDate.getTime())) {
       domList.getItem(item.domId).show();
       return;
     }
-    
-    if(itemDate.getDate() === selectedDate.getDate()) {
+
+    if (itemDate.getDate() === selectedDate.getDate()) {
       domList.getItem(item.domId).show();
     } else {
       domList.getItem(item.domId).hide();
     }
   })
-})
+});
+
+// Service worker implementation
+registerServiceWorker();
+function registerServiceWorker() {
+  if (!navigator.serviceWorker) return;
+
+  navigator.serviceWorker.register('../sw.js').then(function(registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
+  }).catch(function(err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err);
+  });
+}

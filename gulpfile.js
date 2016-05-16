@@ -61,12 +61,18 @@ gulp.task('templates', function() {
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('others', function() {
-  return gulp.src('src/**/*.json')
-    .pipe(gulp.dest('dist/'))
+gulp.task('data', function() {
+  return gulp.src('src/data/*.json')
+    .pipe(gulp.dest('dist/data'));
 });
 
-gulp.task('build', ['compass', 'js', 'templates', 'others']);
+gulp.task('sw', function() {
+  return gulp.src('src/*.js')
+    .pipe(gulp.dest('dist/'));
+});
+
+
+gulp.task('build', ['compass', 'js', 'templates', 'data', 'sw']);
 
 gulp.task('serve', ['build', 'browser-sync'], function() {
   gulp.watch('src/stylesheets/**/*.{scss,sass}', ['compass', reload]);

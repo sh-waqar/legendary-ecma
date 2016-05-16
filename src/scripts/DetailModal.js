@@ -40,7 +40,7 @@ class DetailModal {
         <h2>${data.title}</h2>
         <p class="text-muted">${data.publisher}</p>
         <article>${data.content}</article>
-        <a href="${data.unescapedUrl}">Read more</a>
+        <a href="${data.unescapedUrl}" target="blank">Read more</a>
       </div>`;
 
     // Check related stories
