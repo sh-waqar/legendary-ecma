@@ -1,9 +1,14 @@
+/**
+ * Class constructor for Article details modal
+ * All the interaction and template for modal is defined here
+ */
+
 class DetailModal {
   constructor() {
     // All the needed dom elements
     this.modalBox = document.getElementById('modal');
     this.times = document.getElementById('times');
-    this.content = document.getElementById('modal-content');
+    this.content = document.getElementById('article-content');
     this.related = document.getElementById('related-items');
 
     // When user click close (x) it removes the modal from view
@@ -31,7 +36,12 @@ class DetailModal {
       `<div class="article-img">
           <img src="${data.image.url}">
       </div>
-      <article>${data.content}</article>`;
+      <div class="article-content">
+        <h2>${data.title}</h2>
+        <p class="text-muted">${data.publisher}</p>
+        <article>${data.content}</article>
+        <a href="${data.unescapedUrl}">Read more</a>
+      </div>`;
 
     // Check related stories
     // If available render on view
@@ -42,18 +52,21 @@ class DetailModal {
       // Iterate over the list and render
       data.relatedStories.forEach(item => {
         var node = document.createElement('div');
-        node.className = 'related-list';
+        node.className = 'news-item';
         node.innerHTML =
-          `<h4>${item.title}</h4>
-        <p>${item.publisher}</p>
-        <p>${item.publishedDate}</p>`;
+          `<div class="article-main">
+            <h2>${item.title}</h2>
+            <div class="text-muted">${item.publisher}</div>
+          </div>`;
+        node.addEventListener('click', () => {
+          window.open(item.unescapedUrl, "_blank")
+        })
         this.related.appendChild(node);
       });
     }
     else {
       this.related.classList.add('hide');
     }
-
   }
 }
 

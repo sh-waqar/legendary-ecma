@@ -1,6 +1,6 @@
 /* Large devices (large desktops, 1200px and up) */
 
-@media (min-width: 1200px) {
+@media (min-width: $large-screen) {
   .container {
     width: 1170px;
   }
@@ -9,7 +9,7 @@
 
 /* Medium devices (desktops, 992px and up) */
 
-@media (min-width: 992px) {
+@media (min-width: $medium-screen) {
   .container {
     width: 970px;
   }
@@ -18,8 +18,36 @@
 
 /* Small devices (tablets, 768px and up) */
 
-@media (min-width: 768px) {
+@media (min-width: $small-screen) {
   .container {
     width: 750px;
+  }
+  
+  .news-list {
+    margin: 0px;
+  }
+  .news-item {
+    margin: 10px;
+    box-shadow: $card-shadow;
+    border-radius: 2px;
+    width: calc(50% - 20px);
+    height: 280px;
+    .article-main {
+      padding: 10px;
+    }
+    .article-publisher {
+      padding: 20px 10px;
+    }
+  }
+  
+  .modal {
+    .modal-dialog {
+      position: relative;
+      width: 680px;
+      margin: 30px auto;
+    }
+    .modal-content {
+      border-radius: 2px;
+    }
   }
 }

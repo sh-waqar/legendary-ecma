@@ -3,17 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dyno</title>
+    <title>ECMA-News</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="stylesheets/main.css">
   </head>
-  <body><!--[if lt IE 8]>
-    <p class="browsehappy">
-      You are using an <strong>outdated</strong> browser.
-      Please <a href="http://browsehappy.com/">upgrade your browser</a>
-      to improve your experience.
-    </p><![endif]-->
+  <body>
+    <!--[if lt IE 8]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser.
+        Please <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.
+      </p>
+    <![endif]-->
     <header>
       <div class="container">
         <div class="brand">
@@ -23,19 +25,26 @@
     </header>
     
     <div class="container">
-      <input type="search" id="filter" placeholder="Filter">
-      <input type="date" placeholder="Filter">
-      <div class="news-list" id="news-list"></div>
+      <div class="filters-section clearfix">
+        <div class="search-input">
+          <input type="search" id="filter" placeholder="Search Article">
+        </div>
+        <div class="date-input">
+          <input type="date" id="dateFilter" placeholder="Filter">
+        </div>
+      </div>
+      
+      <div class="news-list clearfix" id="news-list"></div>
     </div>
 
     <div class="modal" id="modal">
       <div class="modal-dialog">
         <div class="times" id="times">&times;</div>
-        <div class="modal-content">
+        <div class="modal-content article-details clearfix">
           <!-- Article Details Sector -->
-          <div id="modal-content"></div>
+          <div id="article-content"></div>
           <!-- Related Stories Section -->
-          <div class="related-items" id="related-items">
+          <div class="related-items clearfix" id="related-items">
             <h5>Related Stories</h5>
           </div>
         </div>

@@ -1,5 +1,4 @@
-var DetailModal = require('./DetailModal');
-
+var DetailModal = require('./detailModal');
 var modal = new DetailModal();
 
 class News {
@@ -28,7 +27,7 @@ class News {
       .querySelector(`[dom-id="${this.domId}"]`)
       .classList.add('hide');
   }
-  
+
   show() {
     document
       .querySelector(`[dom-id="${this.domId}"]`)
@@ -36,10 +35,13 @@ class News {
   }
 
   template() {
-    return `<img src='${this.data.image.tbUrl}'>
-          <h2>${this.data.title}</h2>
-          <p>${this.data.publisher}</p>
-          <p>${this.getDate()}</p>`;
+    return `<div class="article-main">
+              <h2>${this.data.title}</h2>
+              <div class="text-muted">${this.data.publisher}</div>
+            </div>
+            <div class="article-publisher">
+              <div>${this.getDate()}</div>
+            </div>`;
   }
 
   render() {
