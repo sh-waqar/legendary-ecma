@@ -1,4 +1,4 @@
-var DetailModal = require('./detailModal');
+var DetailModal = require('./DetailModal');
 var modal = new DetailModal();
 
 class News {

@@ -55,28 +55,22 @@ gulp.task('clean', function(cb) {
   del('./dist', cb);
 });
 
-gulp.task('images', function() {
-  return gulp.src('./src/images/**/*')
-    .pipe($.imagemin({
-      progressive: true
-    }))
-    .pipe(gulp.dest('./dist/images'))
-})
-
 gulp.task('templates', function() {
   return gulp.src('src/**/*.html')
     .pipe($.plumber())
     .pipe(gulp.dest('dist/'))
 });
 
+gulp.task('others', function() {
+  return gulp.src('src/**/*.json')
+    .pipe(gulp.dest('dist/'))
+});
 
-
-gulp.task('build', ['compass', 'js', 'templates', 'images']);
+gulp.task('build', ['compass', 'js', 'templates', 'others']);
 
 gulp.task('serve', ['build', 'browser-sync'], function() {
   gulp.watch('src/stylesheets/**/*.{scss,sass}', ['compass', reload]);
   gulp.watch('src/scripts/**/*.js', ['js', reload]);
-  gulp.watch('src/images/**/*', ['images', reload]);
   gulp.watch('src/*.html', ['templates', reload]);
 });
 

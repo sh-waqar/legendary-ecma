@@ -1,7 +1,7 @@
 // Import modules
 var $http = require('./ajax');
 var News = require('./News');
-var Dom = require('./dom');
+var Dom = require('./Dom');
 
 // Get DOM elements
 var newsListDOM = document.getElementById('news-list');
